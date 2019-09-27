@@ -30,13 +30,17 @@ def write_answer_to_file(ans, filename):
         f_output.write(" -- {0:.4f}\n".format(item[1]))
 
 
-path = "C:/Users/alex_/source/information_security/data/task_2/"
+path = "C:/Users/alex_/source/information_security/data/task_3/"
 
 
 def test_1():
     file_1 = path + "test_input_1.txt"
     ans = calculate_frequency(file_1)
     write_answer_to_file(ans, file_1)
+
+    file_2 = path + "test_input_2.txt"
+    ans = calculate_frequency(file_2)
+    write_answer_to_file(ans, file_2)
     return ans
 
 
