@@ -53,7 +53,7 @@ def encode_from_file(filename):
     return f_output_name
 
 
-path = "/home/alex/source/information-security/data/task_4/"
+path = "data/task_4/"
 
 
 def test_1():

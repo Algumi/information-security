@@ -25,7 +25,7 @@ def write_answer_to_file(ans, filename):
         f_output.write(" -- {0:.4f}\n".format(item[1]))
 
 
-path = "C:/Users/alex_/source/information_security/data/task_2/"
+path = "data/task_2/"
 
 
 def test_1():

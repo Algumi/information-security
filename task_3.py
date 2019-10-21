@@ -30,7 +30,7 @@ def write_answer_to_file(ans, filename):
         f_output.write(" -- {0:.4f}\n".format(item[1]))
 
 
-path = "C:/Users/alex_/source/information_security/data/task_3/"
+path = "data/task_3/"
 
 
 def test_1():

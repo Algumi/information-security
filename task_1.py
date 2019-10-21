@@ -49,7 +49,7 @@ def gcd(a, b):
     return max(a, b)
 
 
-path = "C:/Users/alex_/source/information_security/data/task_1/"
+path = "data/task_1/"
 
 
 def test_1():

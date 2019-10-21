@@ -5,6 +5,7 @@ def generate_encoder():
         line = letters[i:] + letters[:i]
         for j, column in enumerate(letters):
             table[row, column] = line[j]
+    print(*table.items(), sep="\n")
     return table
 
 
@@ -57,7 +58,7 @@ path = "data/task_6/"
 
 
 def test_all():
-    key = "ключ"
+    key = "мяч"
     file_1 = path + "test_input_1.txt"
     file_2 = path + "test_input_2.txt"
 
