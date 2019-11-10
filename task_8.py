@@ -11,9 +11,8 @@ def generate_dict(phrase):
     unused_letters = set(chars.keys())
 
     for cur_ch in phrase:
-        if cur_ch not in ans.keys():
-            if cur_ch in unused_letters:
-                unused_letters.remove(cur_ch)
+        if cur_ch in unused_letters:
+            unused_letters.remove(cur_ch)
             pair = unused_letters.pop()
             ans[cur_ch] = pair
             ans[pair] = cur_ch
