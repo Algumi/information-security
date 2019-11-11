@@ -1,9 +1,4 @@
-chars = {chr(a + ord('А')): a for a in range(64)}
-chars.update({' ': 64, ',': 65, '.': 66, '?': 67, '!': 68, '-': 69, '(': 70, ')': 71, '\'': 72, '"': 73, '&': 74,
-              ':': 75, ';': 76, '*': 77, '\\': 78, '/': 79, '<': 80, '>': 81, '\n': 82})
-chars.update({chr(a - 83 + ord('0')): a for a in range(83, 93)})
-inverted_chars = {value: key for key, value in chars.items()}
-chars_num = len(chars)
+from math import ceil
 
 
 def encode(text, key):
@@ -11,10 +6,18 @@ def encode(text, key):
     matrix = {k: [] for k in list(key)}
     for i, c in enumerate(text):
         matrix[keys[i % len(key)]].append(c)
+
+    for lst in matrix.values():
+        if len(lst) < ceil(len(text) / len(key)):
+            lst.append("#")
+    print(*matrix.items(), sep="\n")
     matrix = sorted(matrix.items())
+    print("----")
+    print(*matrix, sep="\n")
+    print("----")
 
     result_matrix = []
-    for i in range(int(len(text) / len(key)) + 1):
+    for i in range(ceil(len(text) / len(key))):
         for x in matrix:
             if i < len(x[1]):
                 result_matrix.append(x[1][i])
@@ -32,13 +35,15 @@ def decode(text, key):
     for i, c in enumerate(text):
         matrix[key_num[i % len(key)]].append(c)
 
+    print("++++")
+    print(*matrix.items(), sep="\n")
+    print("++++")
     ans = ""
-    print(matrix)
-    for i in range(int(len(text) / len(keys)) + 1):
+    for i in range(ceil(len(text) / len(key))):
         for c in key:
             if i < len(matrix[c]):
                 ans += matrix[c][i]
-    return ans
+    return ans.replace("#", "")
 
 
 def decode_from_file(filename, key):
