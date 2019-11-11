@@ -10,11 +10,7 @@ def encode(text, key):
     for lst in matrix.values():
         if len(lst) < ceil(len(text) / len(key)):
             lst.append("#")
-    print(*matrix.items(), sep="\n")
     matrix = sorted(matrix.items())
-    print("----")
-    print(*matrix, sep="\n")
-    print("----")
 
     result_matrix = []
     for i in range(ceil(len(text) / len(key))):
@@ -35,9 +31,6 @@ def decode(text, key):
     for i, c in enumerate(text):
         matrix[key_num[i % len(key)]].append(c)
 
-    print("++++")
-    print(*matrix.items(), sep="\n")
-    print("++++")
     ans = ""
     for i in range(ceil(len(text) / len(key))):
         for c in key:
