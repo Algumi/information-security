@@ -56,19 +56,41 @@ def encode_from_file(filename, key):
     return f_output_name
 
 
-path = "data/task_9/"
+def generate_key(text, gamma):
+    gamma_len = len(gamma)
+    text_len = len(text)
+
+    key_text = []
+    for i in range(text_len // gamma_len):
+        for char in gamma:
+            key_text.append(char)
+    for i in range(text_len % gamma_len):
+        key_text.append(gamma[i])
+
+    code = []
+    for i, char in enumerate(text):
+        code.append(inverted_chars[(chars[char] + chars[key_text[i]]) % chars_num])
+
+    return "".join(code)
+
+
+path = "data/task_11/"
 
 
 def test_all():
-    key = "сложныйключ"
+    gamma = "что такое гамма?"
     file_1 = path + "test_input_1.txt"
     file_2 = path + "test_input_2.txt"
 
-    result1 = encode_from_file(file_1, key)
-    decode_from_file(result1, key)
+    key_1 = generate_key(open(file_1).read(), gamma)
+    print(key_1.replace("\n", "\\n"))
+    result1 = encode_from_file(file_1, key_1)
+    decode_from_file(result1, key_1)
 
-    result2 = encode_from_file(file_2, key)
-    decode_from_file(result2, key)
+    key_2 = generate_key(open(file_2).read(), gamma)
+    print(key_2.replace("\n", "\\n"))
+    result2 = encode_from_file(file_2, key_2)
+    decode_from_file(result2, key_2)
 
 
 test_all()
