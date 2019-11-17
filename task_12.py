@@ -56,19 +56,34 @@ def encode_from_file(filename, key):
     return f_output_name
 
 
-path = "data/task_9/"
+def generate_key(text, a, c):
+    import random
+    init_num = random.randint(0, chars_num)
+
+    code = inverted_chars[init_num]
+    for i in range(len(text)):
+        code += inverted_chars[((a * chars[code[-1]] + c) % chars_num)]
+
+    return code
+
+
+path = "data/task_12/"
 
 
 def test_all():
-    key = "сложныйключ"
+    a, c = 54, 11
     file_1 = path + "test_input_1.txt"
     file_2 = path + "test_input_2.txt"
 
-    result1 = encode_from_file(file_1, key)
-    decode_from_file(result1, key)
+    key_1 = generate_key(open(file_1).read(), a, c)
+    print(key_1.replace("\n", "\\n"))
+    result1 = encode_from_file(file_1, key_1)
+    decode_from_file(result1, key_1)
 
-    result2 = encode_from_file(file_2, key)
-    decode_from_file(result2, key)
+    key_2 = generate_key(open(file_2).read(), a, c)
+    print(key_2.replace("\n", "\\n"))
+    result2 = encode_from_file(file_2, key_2)
+    decode_from_file(result2, key_2)
 
 
 test_all()
