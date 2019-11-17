@@ -3,7 +3,7 @@ from math import ceil
 
 def encode(text, key):
     keys = {i: c for i, c in enumerate(key)}
-    matrix = {k: [] for k in list(key)}
+    matrix = {k: [] for k in key}
     for i, c in enumerate(text):
         matrix[keys[i % len(key)]].append(c)
 
@@ -14,17 +14,15 @@ def encode(text, key):
 
     result_matrix = []
     for i in range(ceil(len(text) / len(key))):
-        for x in matrix:
-            if i < len(x[1]):
-                result_matrix.append(x[1][i])
+        for _, value in matrix:
+            result_matrix.append(value[i])
     ans = "".join(result_matrix)
 
     return ans
 
 
 def decode(text, key):
-    keys = sorted([(c, i) for i, c in enumerate(key)])
-    keys = [x[0] for x in keys]
+    keys = sorted(key)
     key_num = {i: char for i, char in enumerate(keys)}
 
     matrix = {k: [] for k in keys}
@@ -34,8 +32,7 @@ def decode(text, key):
     ans = ""
     for i in range(ceil(len(text) / len(key))):
         for c in key:
-            if i < len(matrix[c]):
-                ans += matrix[c][i]
+            ans += matrix[c][i]
     return ans.replace("#", "")
 
 
