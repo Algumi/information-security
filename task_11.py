@@ -56,39 +56,33 @@ def encode_from_file(filename, key):
     return f_output_name
 
 
-def generate_key(text, gamma):
-    gamma_len = len(gamma)
+def generate_key(text, key):
+    bin_key = "".join([bin(chars[c])[2:].zfill(char_code_length) for c in key])
     text_len = len(text)
+    gamma = ""
 
-    key_text = []
-    for i in range(text_len // gamma_len):
-        for char in gamma:
-            key_text.append(char)
-    for i in range(text_len % gamma_len):
-        key_text.append(gamma[i])
+    while len(gamma) < text_len:
+        res = my_xor(bin_key[0], bin_key[4])
+        gamma += res
+        bin_key = bin_key[1:] + res
 
-    code = []
-    for i, char in enumerate(text):
-        code.append(inverted_chars[(chars[char] + chars[key_text[i]]) % chars_num])
-
-    return "".join(code)
+    # print(gamma)
+    return gamma
 
 
 path = "data/task_11/"
 
 
 def test_all():
-    gamma = "что такое гамма?"
+    key = "что такое гамма? слишком сложный вопрос."
     file_1 = path + "test_input_1.txt"
     file_2 = path + "test_input_2.txt"
 
-    key_1 = generate_key(open(file_1).read(), gamma)
-    print(key_1.replace("\n", "\\n"))
+    key_1 = generate_key(open(file_1).read(), key)
     result1 = encode_from_file(file_1, key_1)
     decode_from_file(result1, key_1)
 
-    key_2 = generate_key(open(file_2).read(), gamma)
-    print(key_2.replace("\n", "\\n"))
+    key_2 = generate_key(open(file_2).read(), key)
     result2 = encode_from_file(file_2, key_2)
     decode_from_file(result2, key_2)
 
